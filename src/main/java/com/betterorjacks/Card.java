@@ -8,7 +8,6 @@ import java.io.IOException;
 public class Card {
     private Rank rank;
     private Suit suit;
-    private BufferedImage image;
 
     public Card(Rank rank, Suit suit) {
         this.rank = rank;

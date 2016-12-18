@@ -1,18 +1,14 @@
 package com.betterorjacks;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Deck {
     private List<Card> cards = new ArrayList<>(52);
     private List<Card> hand = new ArrayList<>();
-    private List<BufferedImage> cardImages = new ArrayList<>(52);
     private Combination combination;
 
     public Deck() {
