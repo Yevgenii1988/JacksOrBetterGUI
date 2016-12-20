@@ -22,6 +22,9 @@ public class Deck {
 
     public void shuffle(){
         Collections.shuffle(cards);
+    }
+
+    public void composeHand(){
         for (int i = 0; i < 5; i++) {
             hand.add(cards.get(i));
         }

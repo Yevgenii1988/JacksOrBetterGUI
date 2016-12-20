@@ -100,6 +100,7 @@ public class GUI {
 
     private void play() throws IOException {
         deck.shuffle();
+        deck.composeHand();
         getCards();
         combinationLabel.setText("");
         Combination combination = deck.evaluateHand();
