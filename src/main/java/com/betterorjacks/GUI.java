@@ -18,13 +18,15 @@ public class GUI {
     private JLabel cardLabel3 = new JLabel();
     private JLabel cardLabel4 = new JLabel();
     private JLabel cardLabel5 = new JLabel();
-    JButton holdButton1 = new JButton();
-    JButton holdButton2 = new JButton();
-    JButton holdButton3 = new JButton();
-    JButton holdButton4 = new JButton();
-    JButton holdButton5 = new JButton();
-    JButton playButton = new JButton();
-    JLabel combinationLabel = new JLabel();
+    private JButton holdButton1 = new JButton();
+    private JButton holdButton2 = new JButton();
+    private JButton holdButton3 = new JButton();
+    private JButton holdButton4 = new JButton();
+    private JButton holdButton5 = new JButton();
+    private List<JButton> buttons = new ArrayList<>(Arrays.asList(holdButton1, holdButton2, holdButton3, holdButton4, holdButton5));
+    private List<JLabel> labels = new ArrayList<>(Arrays.asList(cardLabel1, cardLabel2, cardLabel3, cardLabel4, cardLabel5));
+    private JButton playButton = new JButton();
+    private JLabel combinationLabel = new JLabel();
 
     public GUI() throws IOException {
         JFrame frame = new JFrame("Jacks or better");
@@ -40,26 +42,19 @@ public class GUI {
 
         JPanel panel = new JPanel();
 
+        for (JLabel label : labels){
+            final String backFile = "cards/back/back.png";
+            label.setIcon(new ImageIcon(backFile));
+            panel.add(label);
+        }
+
+        for (JButton button : buttons){
+            button.setPreferredSize(new Dimension(200, 50));
+            button.addActionListener(e -> setHoldState(button));
+            panel.add(button);
+        }
+
         setInitialState();
-
-        final String backFile = "cards/back/back.png";
-
-        cardLabel1.setIcon(new ImageIcon(backFile));
-        cardLabel2.setIcon(new ImageIcon(backFile));
-        cardLabel3.setIcon(new ImageIcon(backFile));
-        cardLabel4.setIcon(new ImageIcon(backFile));
-        cardLabel5.setIcon(new ImageIcon(backFile));
-
-        holdButton1.setPreferredSize(new Dimension(200, 50));
-        holdButton2.setPreferredSize(new Dimension(200, 50));
-        holdButton3.setPreferredSize(new Dimension(200, 50));
-        holdButton4.setPreferredSize(new Dimension(200, 50));
-        holdButton5.setPreferredSize(new Dimension(200, 50));
-        holdButton1.addActionListener(e -> setHoldState(holdButton1));
-        holdButton2.addActionListener(e -> setHoldState(holdButton2));
-        holdButton3.addActionListener(e -> setHoldState(holdButton3));
-        holdButton4.addActionListener(e -> setHoldState(holdButton4));
-        holdButton5.addActionListener(e -> setHoldState(holdButton5));
 
         playButton.setText("Play!"); playButton.setPreferredSize(new Dimension(200,100));
         playButton.addActionListener(e -> {
@@ -70,16 +65,6 @@ public class GUI {
             }
         });
 
-        panel.add(cardLabel1);
-        panel.add(cardLabel2);
-        panel.add(cardLabel3);
-        panel.add(cardLabel4);
-        panel.add(cardLabel5);
-        panel.add(holdButton1);
-        panel.add(holdButton2);
-        panel.add(holdButton3);
-        panel.add(holdButton4);
-        panel.add(holdButton5);
         panel.add(playButton);
         frame.add(panel);
         frame.setVisible(true);
@@ -128,15 +113,14 @@ public class GUI {
 
     private void getCards() throws IOException {
         List<BufferedImage> images = deck.getHand();
-        cardLabel1.setIcon(new ImageIcon(images.get(0)));
-        cardLabel2.setIcon(new ImageIcon(images.get(1)));
-        cardLabel3.setIcon(new ImageIcon(images.get(2)));
-        cardLabel4.setIcon(new ImageIcon(images.get(3)));
-        cardLabel5.setIcon(new ImageIcon(images.get(4)));
+        int imageNumber = 0;
+        for (JLabel label : labels){
+            label.setIcon(new ImageIcon(images.get(imageNumber)));
+            imageNumber++;
+        }
     }
 
     private int[] getHeldCards(){
-        List<JButton> buttons = new ArrayList<>(Arrays.asList(holdButton1, holdButton2, holdButton3, holdButton4, holdButton5));
         int[] heldCards = new int[5];
         String text = "Card is held";
         int i = 0;
@@ -150,10 +134,9 @@ public class GUI {
     }
 
     private void setInitialState(){
-        holdButton1.setText("HOLD"); holdButton1.setEnabled(false);
-        holdButton2.setText("HOLD"); holdButton2.setEnabled(false);
-        holdButton3.setText("HOLD"); holdButton3.setEnabled(false);
-        holdButton4.setText("HOLD"); holdButton4.setEnabled(false);
-        holdButton5.setText("HOLD"); holdButton5.setEnabled(false);
+        for (JButton button : buttons){
+            button.setText("HOLD");
+            button.setEnabled(false);
+        }
     }
 }
