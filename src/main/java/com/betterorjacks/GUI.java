@@ -103,10 +103,10 @@ public class GUI {
         deck.composeHand();
         getCards();
         combinationLabel.setText("");
-        Combination combination = deck.evaluateHand();
+        /*Combination combination = deck.evaluateHand();
         if (combination != Combination.NO_COMBINATION){
             combinationLabel.setText("You have " + combination.getName() + " already");
-        }
+        }*/
         holdButton1.setEnabled(true);
         holdButton2.setEnabled(true);
         holdButton3.setEnabled(true);
