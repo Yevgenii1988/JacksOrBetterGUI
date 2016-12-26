@@ -42,9 +42,9 @@ public class Deck {
 
     public void updateHand(int[] heldCards){
         int nextCard = 5;
-        for (int i = 0; i < heldCards.length; i++){
-            if (heldCards[i] == 0){
-                hand.set(i, cards.get(nextCard));
+        for (int card : heldCards){
+            if (heldCards[card] == 0){
+                hand.set(card, cards.get(nextCard));
                 nextCard++;
             }
         }

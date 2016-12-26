@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GUI {
 
-    Deck deck = new Deck();
+    private Deck deck = new Deck();
 
     private boolean inPlay = false;
     private JLabel cardLabel1 = new JLabel();
@@ -42,8 +42,9 @@ public class GUI {
 
         JPanel panel = new JPanel();
 
+        String backFile = "cards/back/back.png";
+
         for (JLabel label : labels){
-            final String backFile = "cards/back/back.png";
             label.setIcon(new ImageIcon(backFile));
             panel.add(label);
         }
