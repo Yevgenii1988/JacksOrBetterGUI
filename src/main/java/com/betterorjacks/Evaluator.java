@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Evaluator {
-    private List<Rank> ranks = new ArrayList<Rank>();
+    private List<Rank> ranks = new ArrayList<>();
+    private List<Card> cards = new ArrayList<>();
 
     public Evaluator(List<Card> cards){
+        this.cards = cards;
         for (Card card : cards){
             Rank rank = card.getRank();
             ranks.add(rank);
@@ -107,5 +109,41 @@ public class Evaluator {
             }
         }
         return (fourCount == 3) || (fourCount == 0);
+    }
+
+    public Combination returnCombination(){
+        Combination combination = null;
+        List<Rank> ranks = getRanksArray();
+        int uniqueRanks = countRanks(ranks);
+        if (uniqueRanks == 5) {
+            boolean sameSuits = checkSuites(cards);
+            boolean isStraight = checkStraight(ranks);
+            if (sameSuits) {
+                if (isStraight) {
+                    boolean isRoyalFlush = checkRoyalFlush(ranks);
+                    if (isRoyalFlush) {
+                        combination = Combination.ROYAL_FLUSH;
+                    } else combination = Combination.STRAIGHT_FLUSH;
+                } else combination = Combination.FLUSH;
+            } else if (isStraight) {
+                combination = Combination.STRAIGHT;
+            } else combination = Combination.NO_COMBINATION;
+        } else if (uniqueRanks == 4) {
+            boolean isHighPair = checkPairs(ranks);
+            if (isHighPair) {
+                combination = Combination.JACKS_OR_BETTER;
+            } else combination = Combination.NO_COMBINATION;
+        } else if (uniqueRanks == 3) {
+            boolean isThree = checkThree(ranks);
+            if (isThree) {
+                combination = Combination.THREE_OF_A_KIND;
+            } else combination = Combination.TWO_PAIR;
+        } else if (uniqueRanks == 2) {
+            boolean isFour = checkFour(ranks);
+            if (isFour) {
+                combination = Combination.FOUR_OF_A_KIND;
+            } else combination = Combination.FULL_HOUSE;
+        }
+        return combination;
     }
 }
