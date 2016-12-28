@@ -104,4 +104,69 @@ public class EvaluatorTest {
         boolean isFourOfAKind = evaluator.checkFour(ranks);
         assertTrue(!isFourOfAKind);
     }
+
+    @Test
+    public void testReturnCombination1(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.SPADES));
+        cards.add(new Card(Rank.JACK, Suit.SPADES));
+        cards.add(new Card(Rank.QUEEN, Suit.SPADES));
+        cards.add(new Card(Rank.KING, Suit.SPADES));
+        cards.add(new Card(Rank.ACE, Suit.SPADES));
+        Evaluator evaluator = new Evaluator(cards);
+        Combination combination = evaluator.returnCombination();
+        assertEquals(Combination.ROYAL_FLUSH, combination);
+    }
+
+    @Test
+    public void testReturnCombination2(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.SPADES));
+        cards.add(new Card(Rank.JACK, Suit.SPADES));
+        cards.add(new Card(Rank.QUEEN, Suit.SPADES));
+        cards.add(new Card(Rank.KING, Suit.SPADES));
+        cards.add(new Card(Rank.NINE, Suit.SPADES));
+        Evaluator evaluator = new Evaluator(cards);
+        Combination combination = evaluator.returnCombination();
+        assertEquals(Combination.STRAIGHT_FLUSH, combination);
+    }
+
+    @Test
+    public void testReturnCombination3(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.SPADES));
+        cards.add(new Card(Rank.JACK, Suit.SPADES));
+        cards.add(new Card(Rank.QUEEN, Suit.DIAMONDS));
+        cards.add(new Card(Rank.KING, Suit.SPADES));
+        cards.add(new Card(Rank.NINE, Suit.SPADES));
+        Evaluator evaluator = new Evaluator(cards);
+        Combination combination = evaluator.returnCombination();
+        assertEquals(Combination.STRAIGHT, combination);
+    }
+
+    @Test
+    public void testReturnCombination4(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.SIX, Suit.CLUBS));
+        cards.add(new Card(Rank.TWO, Suit.SPADES));
+        cards.add(new Card(Rank.TWO, Suit.DIAMONDS));
+        cards.add(new Card(Rank.TWO, Suit.CLUBS));
+        cards.add(new Card(Rank.TWO, Suit.HEARTS));
+        Evaluator evaluator = new Evaluator(cards);
+        Combination combination = evaluator.returnCombination();
+        assertEquals(Combination.FOUR_OF_A_KIND, combination);
+    }
+
+    @Test
+    public void testReturnCombination5(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.SEVEN, Suit.SPADES));
+        cards.add(new Card(Rank.SEVEN, Suit.HEARTS));
+        cards.add(new Card(Rank.SEVEN, Suit.DIAMONDS));
+        cards.add(new Card(Rank.KING, Suit.CLUBS));
+        cards.add(new Card(Rank.KING, Suit.SPADES));
+        Evaluator evaluator = new Evaluator(cards);
+        Combination combination = evaluator.returnCombination();
+        assertEquals(Combination.FULL_HOUSE, combination);
+    }
 }
