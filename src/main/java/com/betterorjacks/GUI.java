@@ -31,6 +31,7 @@ public class GUI {
     public GUI() throws IOException {
         JFrame frame = new JFrame("Jacks or better");
         frame.setSize(1100, 500);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         combinationLabel.setPreferredSize(new Dimension(1000, 50));
