@@ -14,8 +14,14 @@ public class Card {
         this.suit = suit;
     }
 
-    public BufferedImage getImage() throws IOException {
-        return ImageIO.read(new File("cards/faces/" + this.rank.getName() + this.suit.getName() + ".png"));
+    public BufferedImage getImage() {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("cards/faces/" + this.rank.getName() + this.suit.getName() + ".png"));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return image;
     }
 
     public Rank getRank() {

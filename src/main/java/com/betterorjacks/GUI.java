@@ -28,7 +28,7 @@ public class GUI {
     private JButton playButton = new JButton();
     private JLabel combinationLabel = new JLabel();
 
-    public GUI() throws IOException {
+    public GUI() {
         JFrame frame = new JFrame("Jacks or better");
         frame.setSize(1100, 500);
         frame.setResizable(false);
@@ -43,9 +43,10 @@ public class GUI {
 
         JPanel panel = new JPanel();
 
+
         String backFile = "cards/back/back.png";
 
-        for (JLabel label : labels){
+        for (JLabel label : labels) {
             label.setIcon(new ImageIcon(backFile));
             panel.add(label);
         }
