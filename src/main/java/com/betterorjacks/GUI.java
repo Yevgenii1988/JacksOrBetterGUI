@@ -3,7 +3,6 @@ package com.betterorjacks;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,20 +59,14 @@ public class GUI {
         setInitialState();
 
         playButton.setText("Play!"); playButton.setPreferredSize(new Dimension(200,100));
-        playButton.addActionListener(e -> {
-            try {
-                getState();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+        playButton.addActionListener(e -> getState());
 
         panel.add(playButton);
         frame.add(panel);
         frame.setVisible(true);
     }
 
-    private void getState() throws IOException {
+    private void getState() {
         if (inPlay){
             playAgain();
         } else play();
@@ -86,7 +79,7 @@ public class GUI {
         } else holdButton.setText("HOLD");
     }
 
-    private void play() throws IOException {
+    private void play() {
         deck.shuffle();
         deck.composeHand();
         getCards();
@@ -103,7 +96,7 @@ public class GUI {
         inPlay = true;
     }
 
-    private void playAgain() throws IOException {
+    private void playAgain() {
         int[] heldCards = getHeldCards();
         deck.updateHand(heldCards);
         getCards();
@@ -114,7 +107,7 @@ public class GUI {
         deck = new Deck();
     }
 
-    private void getCards() throws IOException {
+    private void getCards() {
         List<BufferedImage> images = deck.getHand();
         int imageNumber = 0;
         for (JLabel label : labels){

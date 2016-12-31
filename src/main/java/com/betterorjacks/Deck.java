@@ -1,7 +1,6 @@
 package com.betterorjacks;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +28,7 @@ public class Deck {
         }
     }
 
-    public List<BufferedImage> getHand() throws IOException {
+    public List<BufferedImage> getHand() {
 
         List<BufferedImage> handImages = new ArrayList<>();
         for (Card card : hand){
