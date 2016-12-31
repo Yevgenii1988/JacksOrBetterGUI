@@ -76,7 +76,11 @@ public class GUI {
         String text = "Card is held";
         if (!holdButton.getText().equals(text)){
             holdButton.setText(text);
-        } else holdButton.setText("HOLD");
+            holdButton.setBackground(Color.RED);
+        } else {
+            holdButton.setText("HOLD");
+            holdButton.setBackground(null);
+        }
     }
 
     private void play() {
@@ -88,11 +92,9 @@ public class GUI {
         if (combination != Combination.NO_COMBINATION){
             combinationLabel.setText("You have " + combination.getName() + " already");
         }*/
-        holdButton1.setEnabled(true);
-        holdButton2.setEnabled(true);
-        holdButton3.setEnabled(true);
-        holdButton4.setEnabled(true);
-        holdButton5.setEnabled(true);
+        for (JButton button : buttons){
+            button.setEnabled(true);
+        }
         inPlay = true;
     }
 
@@ -132,6 +134,7 @@ public class GUI {
     private void setInitialState(){
         for (JButton button : buttons){
             button.setText("HOLD");
+            button.setBackground(null);
             button.setEnabled(false);
         }
     }
