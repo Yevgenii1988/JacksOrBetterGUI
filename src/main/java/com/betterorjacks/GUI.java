@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GUI {
 
-    private Deck deck = new Deck();
+    private Deck deck = Deck.getDeck();
 
     private boolean inPlay = false;
     private JLabel cardLabel1 = new JLabel();
@@ -88,10 +88,6 @@ public class GUI {
         deck.composeHand();
         getCards();
         combinationLabel.setText("");
-        /*Combination combination = deck.evaluateHand();
-        if (combination != Combination.NO_COMBINATION){
-            combinationLabel.setText("You have " + combination.getName() + " already");
-        }*/
         for (JButton button : buttons){
             button.setEnabled(true);
         }
@@ -106,7 +102,7 @@ public class GUI {
         combinationLabel.setText(combination.getName());
         setInitialState();
         inPlay = false;
-        deck = new Deck();
+        deck.reset();
     }
 
     private void getCards() {

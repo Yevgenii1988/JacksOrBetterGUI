@@ -6,16 +6,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
+    private static Deck deckInstance = null;
+
     private List<Card> cards = new ArrayList<>(52);
     private List<Card> hand = new ArrayList<>();
 
-    public Deck() {
+    private Deck() {
         for (Rank rank : Rank.values()) {
             for (Suit suit : Suit.values()){
                 Card card = new Card(rank, suit);
                 cards.add(card);
             }
         }
+    }
+
+    public static Deck getDeck(){
+        if (deckInstance == null){
+            deckInstance = new Deck();
+        }
+        return deckInstance;
     }
 
     public void shuffle(){
@@ -46,6 +55,10 @@ public class Deck {
                 nextCard++;
             }
         }
+    }
+
+    public void reset(){
+        hand.clear();
     }
 
     public Combination evaluateHand() {
