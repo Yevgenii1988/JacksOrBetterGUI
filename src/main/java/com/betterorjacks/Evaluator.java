@@ -17,6 +17,10 @@ public class Evaluator {
         }
     }
 
+    public Evaluator(){
+
+    }
+
     protected List<Rank> getRanksArray(){
         return ranks;
     }
@@ -41,9 +45,39 @@ public class Evaluator {
         return cardCounter == 4;
     }
 
+    protected List<List<Rank>> getStraightCombinations(){
+        List<Rank> ranks = new ArrayList<>();
+        List<List<Rank>> straightsArray = new ArrayList<>();
+        for (Rank rank : Rank.values()){
+            ranks.add(rank);
+        }
+        ranks.add(Rank.ACE);
+        for (int i = 0; i < ranks.size()-4; i++){
+            List<Rank> straights = new ArrayList<>();
+            straights.add(ranks.get(i));
+            straights.add(ranks.get(i+1));
+            straights.add(ranks.get(i+2));
+            straights.add(ranks.get(i+3));
+            straights.add(ranks.get(i+4));
+            straightsArray.add(straights);
+        }
+        return straightsArray;
+    }
+
+    protected List<List<Rank>> getStraightsList(Rank rank){
+        List<List<Rank>> straightsArray = getStraightCombinations();
+        List<List<Rank>> straights = new ArrayList<>();
+        for (List<Rank> list : straightsArray){
+            if (list.contains(rank)){
+                straights.add(list);
+            }
+        }
+        return straights;
+    }
+
     protected boolean checkStraight(List<Rank> ranks) {
         int straightCounter = 0;
-        List<List<Rank>> straightsArray = ranks.get(0).getStraightsList();
+        List<List<Rank>> straightsArray = getStraightsList(ranks.get(0));
         for (List<Rank> array : straightsArray) {
             for (Rank rank : ranks) {
                 if (array.contains(rank)) {

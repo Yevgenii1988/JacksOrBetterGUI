@@ -36,6 +36,26 @@ public class EvaluatorTest {
     }
 
     @Test
+    public void testGetStraightCombinations(){
+        Evaluator evaluator = new Evaluator();
+        List<List<Rank>> straights = evaluator.getStraightCombinations();
+        assertEquals(10, straights.size());
+    }
+
+    @Test
+    public void testGetStraightsList(){
+        Evaluator evaluator = new Evaluator();
+        List<List<Rank>> straightsAce = evaluator.getStraightsList(Rank.ACE);
+        assertEquals(2, straightsAce.size());
+        List<List<Rank>> straightsThree = evaluator.getStraightsList(Rank.THREE);
+        assertEquals(3, straightsThree.size());
+        List<List<Rank>> straightsSeven = evaluator.getStraightsList(Rank.SEVEN);
+        assertEquals(5, straightsSeven.size());
+        List<List<Rank>> straightsQueen = evaluator.getStraightsList(Rank.QUEEN);
+        assertEquals(3, straightsQueen.size());
+    }
+
+    @Test
     public void testCheckStraight() throws Exception {
         List<Card> cards = new ArrayList<>();
         cards.add(new Card(Rank.JACK, Suit.DIAMONDS));
