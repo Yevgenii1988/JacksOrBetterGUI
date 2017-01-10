@@ -9,23 +9,19 @@ public class Evaluator {
     private List<Rank> ranks = new ArrayList<>();
     private List<Card> cards = new ArrayList<>();
 
-    public Evaluator(List<Card> cards){
-        this.cards = cards;
-        for (Card card : cards){
-            Rank rank = card.getRank();
-            ranks.add(rank);
-        }
-    }
-
     public Evaluator(){
 
     }
 
-    protected List<Rank> getRanksArray(){
+    private List<Rank> getRanksArray(){
+        for (Card card : cards){
+            Rank rank = card.getRank();
+            ranks.add(rank);
+        }
         return ranks;
     }
 
-    protected int countRanks(List<Rank> ranks) {
+    private int countRanks(List<Rank> ranks) {
         HashSet uniqueRanks = new HashSet();
         for (Rank rank : ranks){
             uniqueRanks.add(rank);
@@ -33,7 +29,7 @@ public class Evaluator {
         return uniqueRanks.size();
     }
 
-    protected boolean checkSuites(List<Card> cards) {
+    private boolean checkSuites(List<Card> cards) {
         int cardCounter = 0;
         int firstCard = 0;
         for(int i = 1; i < cards.size(); i++) {
@@ -45,7 +41,7 @@ public class Evaluator {
         return cardCounter == 4;
     }
 
-    protected List<List<Rank>> getStraightCombinations(){
+    private List<List<Rank>> getStraightCombinations(){
         List<Rank> ranks = new ArrayList<>();
         List<List<Rank>> straightsArray = new ArrayList<>();
         for (Rank rank : Rank.values()){
@@ -64,7 +60,7 @@ public class Evaluator {
         return straightsArray;
     }
 
-    protected List<List<Rank>> getStraightsList(Rank rank){
+    private List<List<Rank>> getStraightsList(Rank rank){
         List<List<Rank>> straightsArray = getStraightCombinations();
         List<List<Rank>> straights = new ArrayList<>();
         for (List<Rank> list : straightsArray){
@@ -75,7 +71,7 @@ public class Evaluator {
         return straights;
     }
 
-    protected boolean checkStraight(List<Rank> ranks) {
+    private boolean checkStraight(List<Rank> ranks) {
         int straightCounter = 0;
         List<List<Rank>> straightsArray = getStraightsList(ranks.get(0));
         for (List<Rank> array : straightsArray) {
@@ -92,7 +88,7 @@ public class Evaluator {
         return straightCounter == 5;
     }
 
-    protected boolean checkRoyalFlush(List<Rank> ranks){
+    private boolean checkRoyalFlush(List<Rank> ranks){
         int royalFlushCounter = 0;
         ArrayList royalFlush = new ArrayList(Arrays.asList(Rank.TEN, Rank.JACK, Rank.QUEEN, Rank.KING, Rank.ACE));
         for (Rank rank : ranks){
@@ -104,7 +100,7 @@ public class Evaluator {
         return royalFlushCounter == 5;
     }
 
-    protected boolean checkPairs(List<Rank> ranks) {
+    private boolean checkPairs(List<Rank> ranks) {
         int cardPosition = 0;
         ArrayList highCards = new ArrayList(Arrays.asList(Rank.JACK, Rank.QUEEN, Rank.KING, Rank.ACE));
 
@@ -119,7 +115,7 @@ public class Evaluator {
         return highCards.contains(ranks.get(cardPosition));
     }
 
-    protected boolean checkThree(List<Rank> ranks){
+    private boolean checkThree(List<Rank> ranks){
         int threeCount = 0;
         for(int i = 0; i < ranks.size(); ++i){
             for(int j = ranks.size() - 1; j > i; --j){
@@ -134,7 +130,7 @@ public class Evaluator {
         return threeCount == 2;
     }
 
-    protected boolean checkFour(List<Rank> ranks){
+    private boolean checkFour(List<Rank> ranks){
         int fourCount = 0;
         int i = 0;
         for(int j = ranks.size() - 1; j > i; --j){
@@ -145,7 +141,8 @@ public class Evaluator {
         return (fourCount == 3) || (fourCount == 0);
     }
 
-    public Combination returnCombination(){
+    public Combination returnCombination(List<Card> cards){
+        this.cards = cards;
         Combination combination = null;
         List<Rank> ranks = getRanksArray();
         int uniqueRanks = countRanks(ranks);
