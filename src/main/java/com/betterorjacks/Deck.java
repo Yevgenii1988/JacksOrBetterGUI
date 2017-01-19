@@ -64,6 +64,7 @@ public class Deck {
     public Combination evaluateHand() {
         Evaluator evaluator = new Evaluator();
         Combination combination = evaluator.returnCombination(hand);
+        evaluator = null;
         return combination;
     }
 }

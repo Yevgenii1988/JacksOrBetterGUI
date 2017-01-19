@@ -1,9 +1,6 @@
 package com.betterorjacks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Evaluator {
     private List<Rank> ranks = new ArrayList<>();
@@ -22,7 +19,7 @@ public class Evaluator {
     }
 
     private int countRanks(List<Rank> ranks) {
-        HashSet uniqueRanks = new HashSet();
+        Set<Rank> uniqueRanks = new HashSet<>();
         for (Rank rank : ranks){
             uniqueRanks.add(rank);
         }
@@ -104,8 +101,8 @@ public class Evaluator {
         int cardPosition = 0;
         ArrayList highCards = new ArrayList(Arrays.asList(Rank.JACK, Rank.QUEEN, Rank.KING, Rank.ACE));
 
-        for(int i = 0; i < ranks.size(); ++i) {
-            for(int j = ranks.size() - 1; j > i; --j) {
+        for(int i = 0; i < ranks.size(); i++) {
+            for(int j = ranks.size() - 1; j > i; j--) {
                 if(ranks.get(i) == ranks.get(j)) {
                     cardPosition = i;
                     break;
@@ -117,8 +114,8 @@ public class Evaluator {
 
     private boolean checkThree(List<Rank> ranks){
         int threeCount = 0;
-        for(int i = 0; i < ranks.size(); ++i){
-            for(int j = ranks.size() - 1; j > i; --j){
+        for(int i = 0; i < ranks.size(); i++){
+            for(int j = ranks.size() - 1; j > i; j--){
                 if (ranks.get(i) == ranks.get(j)){
                     threeCount++;
                 }
@@ -133,7 +130,7 @@ public class Evaluator {
     private boolean checkFour(List<Rank> ranks){
         int fourCount = 0;
         int i = 0;
-        for(int j = ranks.size() - 1; j > i; --j){
+        for(int j = ranks.size() - 1; j > i; j--){
             if (ranks.get(i) == ranks.get(j)){
                 fourCount++;
             }
