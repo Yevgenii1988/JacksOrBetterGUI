@@ -12,6 +12,7 @@ public class GUI {
     private Deck deck = Deck.getDeck();
 
     private boolean inPlay = false;
+
     private JLabel cardLabel1 = new JLabel();
     private JLabel cardLabel2 = new JLabel();
     private JLabel cardLabel3 = new JLabel();
@@ -27,6 +28,9 @@ public class GUI {
     private JButton playButton = new JButton();
     private JLabel combinationLabel = new JLabel();
 
+    /**
+     * Building the Graphic User Interface
+     */
     public GUI() {
         JFrame frame = new JFrame("Jacks or better");
         frame.setSize(1100, 500);
@@ -66,12 +70,23 @@ public class GUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Receives the state of the play,
+     * whether the user finished the game getting the combination,
+     * or just finished the firs round of the game
+     */
     private void getState() {
         if (inPlay){
             playAgain();
         } else play();
     }
 
+    /**
+     * Sets the pressed button in the state of hold,
+     * when pressed again, returns to the initial state
+     *
+     * @param holdButton    pressed button
+     */
     private void setHoldState(JButton holdButton){
         String text = "Card is held";
         if (!holdButton.getText().equals(text)){
@@ -83,6 +98,10 @@ public class GUI {
         }
     }
 
+    /**
+     * Invokes the methods from the Deck class to shuffle the deck and compose the hand of cards,
+     * displays the pictures of the cards, and sets the "IN PLAY" state
+     */
     private void play() {
         deck.shuffle();
         deck.composeHand();
@@ -94,6 +113,11 @@ public class GUI {
         inPlay = true;
     }
 
+    /**
+     * Receives the cards being held and passes them to the Deck instance to get the updated hand images.
+     * Then the evaluation of the updated hand is happening and name of the combination appears on the screen.
+     * "IN PLAY" state is over, and the game returns to the initial state.
+     */
     private void playAgain() {
         int[] heldCards = getHeldCards();
         deck.updateHand(heldCards);
@@ -105,6 +129,10 @@ public class GUI {
         deck.reset();
     }
 
+    /**
+     * Receives the images of the cards in the hand
+     * and each label icon is set to the corresponding image in the hand.
+     */
     private void getCards() {
         List<BufferedImage> images = deck.getHand();
         int imageNumber = 0;
@@ -114,6 +142,12 @@ public class GUI {
         }
     }
 
+    /**
+     * Forms the array of 0's and 1's based on what state every button is currently in.
+     * 1 - the button is pressed, so it is in the "held" state, 0 - otherwise.
+     *
+     * @return  the array of held cards, which is then should be passed to the Deck instance
+     */
     private int[] getHeldCards(){
         int[] heldCards = new int[5];
         String text = "Card is held";
@@ -127,6 +161,9 @@ public class GUI {
         return heldCards;
     }
 
+    /**
+     * Sets the initial state of the game.
+     */
     private void setInitialState(){
         for (JButton button : buttons){
             button.setText("HOLD");
